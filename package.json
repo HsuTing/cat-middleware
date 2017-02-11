@@ -1,0 +1,50 @@
+{
+  "scripts": {
+    "lint": "eslint --cache ./src ./bin --ext .js",
+    "lint:watch": "esw --cache ./src ./bin --ext .js -w --color",
+    "babel": "rm -rf ./lib && babel src --out-dir lib",
+    "babel:watch": "rm -rf ./lib && babel -w src --out-dir lib"
+  },
+  "main": "./lib/index.js",
+  "name": "cat-middleware",
+  "version": "0.0.0",
+  "description": "koa middleware",
+  "author": {
+    "name": "hsuting",
+    "email": "hsuting0106@gmail.com",
+    "url": "http://hsuting.com"
+  },
+  "keywords": [
+    "koa",
+    "middleware"
+  ],
+  "pre-commit": [
+    "lint"
+  ],
+  "homepage": "https://github.com/HsuTing/cat-middleware",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HsuTing/cat-middleware.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HsuTing/cat-middleware/issues"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-core": "^6.22.1",
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-module-resolver": "^2.5.0",
+    "babel-plugin-transform-object-assign": "^6.22.0",
+    "babel-preset-latest": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "eslint": "^3.15.0",
+    "eslint-config-google": "^0.7.1",
+    "eslint-import-resolver-babel-module": "^3.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-react": "^6.9.0",
+    "eslint-watch": "^2.1.14",
+    "pre-commit": "^1.2.2"
+  }
+}
