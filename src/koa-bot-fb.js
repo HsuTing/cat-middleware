@@ -39,6 +39,8 @@ export default receivedMessage => {
       response.status = 200;
     }
   });
+
+  return router;
 };
 
 export const callSendAPI = messageData => {

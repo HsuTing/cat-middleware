@@ -43,7 +43,7 @@ Middleware of koa server.
   ```
 
 - koa-bot-fb
-  - This use `koa-better-router`, you need to use `loadMethods()`.
+  - This use `koa-better-router`, you need to use `middleware()`.
   - Need to install `koa-body`, `koa-better-router` and `request`.
 - See more information in [code](./src).
 
