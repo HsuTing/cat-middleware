@@ -27,6 +27,16 @@ export const callSendAPI = messageData => {
   });
 };
 
+export const sendTextMessage = (replyToken, message) => {
+  callSendAPI({
+    replyToken,
+    messages: [{
+      type: 'text',
+      text: message
+    }]
+  });
+};
+
 export const sendMessage = (replyToken, messages) => {
   callSendAPI({
     replyToken,
