@@ -44,6 +44,8 @@ Middleware of koa server.
 
 - koa-bot-fb
   - Need to install `request`.
+- koa-bot-line
+  - Need to install `request`.
 - See more information in [code](./src).
 
 ## License
