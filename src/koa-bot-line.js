@@ -15,7 +15,7 @@ export const callSendAPI = messageData => {
   request({
     url: 'https://api.line.me/v2/bot/message/reply',
     headers: {
-      Authorization: process.env.BOT_LINE_AUTHORIZATION
+      Authorization: `Bearer {${process.env.BOT_LINE_AUTHORIZATION}}`
     },
     method: 'POST',
     json: messageData
