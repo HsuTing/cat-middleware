@@ -1,46 +1,39 @@
 'use strict';
 
 import process from 'process';
-import body from 'koa-body';
-import Router from 'koa-better-router';
 import request from 'request';
 
-export default receivedMessage => {
-  const router = Router().loadMethods();
+export const verifyToken = ctx => {
+  const {request, response} = ctx;
 
-  router.get('/webhook', body(), ctx => {
-    const {request, response} = ctx;
-    if(request.query['hub.mode'] === 'subscribe' &&
-      request.query['hub.verify_token'] === process.env.BOT_FB_VERIFY_TOKEN) {
-      console.log('Validating webhook');
+  if(request.query['hub.mode'] === 'subscribe' &&
+    request.query['hub.verify_token'] === process.env.BOT_FB_VERIFY_TOKEN) {
+    console.log('Validating webhook');
 
-      response.status = 200;
-      response.body = request.query['hub.challenge'];
-    } else {
-      console.error('Failed validation. Make sure the validation tokens match.');
-      response.status = 403;
-    }
-  });
+    response.status = 200;
+    response.body = request.query['hub.challenge'];
+  } else {
+    console.error('Failed validation. Make sure the validation tokens match.');
+    response.status = 403;
+  }
+};
 
-  router.post('/webhook', body(), ctx => {
-    const {request, response} = ctx;
-    const data = request.body;
+export const receivedMessage = callback => ctx => {
+  const {request, response} = ctx;
+  const data = request.body;
 
-    if(data.object === 'page') {
-      data.entry.forEach(entry => {
-        entry.messaging.forEach(event => {
-          if(event.message)
-            receivedMessage(event);
-          else
-            console.log(`Webhook received unknown event: ${event}`);
-        });
+  if(data.object === 'page') {
+    data.entry.forEach(entry => {
+      entry.messaging.forEach(event => {
+        if(event.message)
+          callback(event);
+        else
+          console.log(`Webhook received unknown event: ${event}`);
       });
+    });
 
-      response.status = 200;
-    }
-  });
-
-  return router;
+    response.status = 200;
+  }
 };
 
 export const callSendAPI = messageData => {
