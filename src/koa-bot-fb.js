@@ -3,6 +3,13 @@
 import process from 'process';
 import request from 'request';
 
+import checkEnv from './checkEnv';
+
+checkEnv([
+  'BOT_FB_VERIFY_TOKEN',
+  'BOT_FB_PAGE_ACCESS_TOKEN'
+]);
+
 export const verifyToken = ctx => {
   const {request, response} = ctx;
 

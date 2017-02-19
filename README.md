@@ -44,8 +44,29 @@ Middleware of koa server.
 
 - koa-bot-fb
   - Need to install `request`.
+  - Example:
+
+  ```javascript
+  ...
+  import * as FBBot from 'cat-middleware/lib/koa-bot-fb';
+  ...
+  router.get('/webhook', body(), FBBot.verifyToken);
+  router.post('/webhook', body(), FBBot.receivedMessage(FBReceivedMessage));
+  ...
+  ```
+
 - koa-bot-line
   - Need to install `request`.
+  - Example:
+
+  ```javascript
+  ...
+  import * as LineBot from 'cat-middleware/lib/koa-bot-line';
+  ...
+  router.post('/line', body(), LineBot.receivedMessage(LineReceivedMessage));
+  ...
+  ```
+
 - See more information in [code](./src).
 
 ## License

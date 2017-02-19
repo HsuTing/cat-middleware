@@ -3,6 +3,10 @@
 import process from 'process';
 import request from 'request';
 
+import checkEnv from './checkEnv';
+
+checkEnv('BOT_LINE_AUTHORIZATION');
+
 export const receivedMessage = callback => ctx => {
   const {request, response} = ctx;
   const data = request.body;
