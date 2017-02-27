@@ -3,7 +3,7 @@
 import process from 'process';
 import request from 'request';
 
-import checkEnv from './checkEnv';
+import {checkEnv} from 'cat-utils';
 
 checkEnv([
   'BOT_FB_VERIFY_TOKEN',

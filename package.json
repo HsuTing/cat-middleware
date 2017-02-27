@@ -7,7 +7,7 @@
   },
   "main": "./lib/index.js",
   "name": "cat-middleware",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "koa middleware",
   "author": {
     "name": "hsuting",
@@ -46,5 +46,8 @@
     "eslint-plugin-react": "^6.9.0",
     "eslint-watch": "^2.1.14",
     "pre-commit": "^1.2.2"
+  },
+  "dependencies": {
+    "cat-utils": "^0.0.7"
   }
 }
