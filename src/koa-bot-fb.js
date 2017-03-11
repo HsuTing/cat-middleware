@@ -25,7 +25,7 @@ export const verifyToken = ctx => {
   }
 };
 
-export const receivedMessage = callback => ctx => {
+export const receivedMessage = (callback, unknown_event_callback) => ctx => {
   const {request, response} = ctx;
   const data = request.body;
 
@@ -34,6 +34,8 @@ export const receivedMessage = callback => ctx => {
       entry.messaging.forEach(event => {
         if(event.message)
           callback(event);
+        else if(unknown_event_callback)
+          unknown_event_callback(event);
         else
           console.log(`Webhook received unknown event: ${event}`);
       });
