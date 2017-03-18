@@ -15,7 +15,7 @@ export const receivedMessage = callback => ctx => {
   response.status = 200;
 };
 
-export const callSendAPI = messageData => {
+export const callSendAPI = (messageData, callback) => {
   request({
     url: 'https://api.line.me/v2/bot/message/reply',
     headers: {
@@ -23,7 +23,7 @@ export const callSendAPI = messageData => {
     },
     method: 'POST',
     json: messageData
-  }, (error, response, body) => {
+  }, callback ? callback : (error, response, body) => {
     if(error)
       console.log(`Error sending message: ${error}`);
     else if(response.body.error)
@@ -31,19 +31,19 @@ export const callSendAPI = messageData => {
   });
 };
 
-export const sendTextMessage = (replyToken, message) => {
+export const sendTextMessage = (replyToken, message, callback) => {
   callSendAPI({
     replyToken,
     messages: [{
       type: 'text',
       text: message
     }]
-  });
+  }, callback);
 };
 
-export const sendMessage = (replyToken, messages) => {
+export const sendMessage = (replyToken, messages, callback) => {
   callSendAPI({
     replyToken,
     messages
-  });
+  }, callback);
 };

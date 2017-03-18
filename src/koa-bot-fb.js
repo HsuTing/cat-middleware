@@ -45,7 +45,7 @@ export const receivedMessage = (callback, unknown_event_callback) => ctx => {
   }
 };
 
-export const callSendAPI = messageData => {
+export const callSendAPI = (messageData, callback) => {
   request({
     uri: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {
@@ -53,7 +53,7 @@ export const callSendAPI = messageData => {
     },
     method: 'POST',
     json: messageData
-  }, (error, response, body) => {
+  }, callback ? callback : (error, response, body) => {
     if(!error && response.statusCode == 200) {
       const recipientId = body.recipient_id;
       const messageId = body.message_id;
@@ -67,7 +67,7 @@ export const callSendAPI = messageData => {
   });
 };
 
-export const sendTextMessage = (recipientId, messageText) => {
+export const sendTextMessage = (recipientId, messageText, callback) => {
   callSendAPI({
     recipient: {
       id: recipientId
@@ -75,14 +75,14 @@ export const sendTextMessage = (recipientId, messageText) => {
     message: {
       text: messageText
     }
-  });
+  }, callback);
 };
 
-export const sendMessage = (recipientId, message) => {
+export const sendMessage = (recipientId, message, callback) => {
   callSendAPI({
     recipient: {
       id: recipientId
     },
     message
-  });
+  }, callback);
 };
