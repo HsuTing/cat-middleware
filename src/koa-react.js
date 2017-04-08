@@ -8,11 +8,11 @@ import {renderToStaticMarkup} from 'react-dom/server';
 import Wrapper from 'cat-components/lib/Wrapper';
 
 const root = process.cwd();
-nunjucks.configure(path.resolve(root, './views'));
 
 const render = (ctx, options, content) => {
+  nunjucks.configure(path.resolve(root, options || './views'));
   ctx.body = nunjucks.render(
-    options.template ? options.template : 'template.html',
+    options.template || 'template.html',
     Object.assign({}, options, {
       content
     })

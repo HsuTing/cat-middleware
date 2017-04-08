@@ -9,9 +9,9 @@ import IsomorphicRelay from 'isomorphic-relay';
 import Wrapper from 'cat-components/lib/Wrapper';
 
 const root = process.cwd();
-nunjucks.configure(path.resolve(root, './views'));
 
 export default options => {
+  nunjucks.configure(path.resolve(root, options.root || './views'));
   return ctx => {
     return IsomorphicRelay.prepareData(options.rootContainerProps, options.networkLayer)
       .then(({data, props}) => {
@@ -21,7 +21,7 @@ export default options => {
           </Wrapper>
         );
         ctx.body = nunjucks.render(
-          options.template ? options.template : 'template.html',
+          options.template || 'template.html',
           Object.assign({}, options, {
             content,
             data: JSON.stringify(data)
