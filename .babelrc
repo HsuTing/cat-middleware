@@ -9,6 +9,7 @@
     ["module-resolver", {
       "root": ["./src"],
       "alias": {
+        "share": "share"
       }
     }]
   ]

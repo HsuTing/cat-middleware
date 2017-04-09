@@ -3,9 +3,9 @@
 import process from 'process';
 import request from 'request';
 
-import {checkEnv} from 'cat-utils';
+import check from 'cat-utils/lib/check';
 
-checkEnv('BOT_LINE_AUTHORIZATION');
+check.env('BOT_LINE_AUTHORIZATION');
 
 export const receivedMessage = callback => ctx => {
   const {request, response} = ctx;

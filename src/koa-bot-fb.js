@@ -3,9 +3,9 @@
 import process from 'process';
 import request from 'request';
 
-import {checkEnv} from 'cat-utils';
+import check from 'cat-utils/lib/check';
 
-checkEnv([
+check.env([
   'BOT_FB_VERIFY_TOKEN',
   'BOT_FB_PAGE_ACCESS_TOKEN'
 ]);
