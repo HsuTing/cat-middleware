@@ -8,6 +8,6 @@ export default options => {
   return ctx => {
     options.ctx = ctx;
 
-    renderRelay(options, render);
+    return renderRelay(options, render);
   };
 };
