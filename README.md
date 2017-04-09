@@ -42,6 +42,10 @@ Middleware of koa server.
   ...
   ```
 
+- koa-relay-router
+  - Need to install `nunjucks`, `react`, `react-dom`, `isomorphic-relay` and `cat-components`.
+  - Use like `koa-relay`, but need to give `container` and `containerQuery` instead of `rootContainerProps`.
+
 - koa-bot-fb
   - Need to install `request`.
   - Example:
