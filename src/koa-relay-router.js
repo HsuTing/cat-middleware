@@ -9,7 +9,7 @@ export default options => {
     const {container, containerQuery, ...newOptions} = options;
     const req = ctx.req;
 
-    options.ctx = ctx;
+    newOptions.ctx = ctx;
 
     return renderRelay(
       Object.assign({}, newOptions, {

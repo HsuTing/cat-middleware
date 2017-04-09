@@ -9,7 +9,7 @@
   },
   "main": "./lib/index.js",
   "name": "cat-middleware",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "koa middleware",
   "author": {
     "name": "hsuting",
