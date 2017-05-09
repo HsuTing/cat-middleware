@@ -11,17 +11,16 @@ export default options => {
 
     newOptions.ctx = ctx;
 
-    return renderRelay(
-      Object.assign({}, newOptions, {
-        rootContainerProps: container(Object.assign({}, containerQuery, {
-          isServer: true,
-          props: {
-            location: req.url,
-            context: {}
-          }
-        }))
-      }),
-      render
-    );
+    return renderRelay({
+      ...newOptions,
+      rootContainerProps: container({
+        ...containerQuery,
+        isServer: true,
+        props: {
+          location: req.url,
+          context: {}
+        }
+      })
+    }, render);
   };
 };
