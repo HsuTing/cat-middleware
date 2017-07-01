@@ -1,4 +1,4 @@
-# Cat-middleware [![NPM version][npm-image]][npm-url]
+# Cat-middleware [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
 Middleware of koa server.
 
 ## Middleware
@@ -61,3 +61,5 @@ MIT © [hsuting](http://hsuting.com)
 
 [npm-image]: https://badge.fury.io/js/cat-middleware.svg
 [npm-url]: https://npmjs.org/package/cat-middleware
+[travis-image]: https://travis-ci.org/HsuTing/cat-middleware.svg?branch=master
+[travis-url]: https://travis-ci.org/HsuTing/cat-middleware

@@ -3,17 +3,20 @@
 const should = require('should');
 const fetch = require('node-fetch');
 
-const renderContent = content => (
-  `<main id="root">${content}</main>\n`
-);
+require('./../lib/test/server');
 
 describe('koa-react-render', () => {
-  describe('# test react', () => {
-    it('should be equal to "test"', () => new Promise((resolve) => {
-      fetch('http://localhost:8000/react-render/')
-        .then(res => resolve(res.text()));
-    }).should.be.eventually.equal(
-      renderContent('<div>render react</div>')
-    ));
-  });
+  it('# test react', () => new Promise((resolve) => {
+    fetch('http://localhost:8000/react-render/')
+      .then(res => resolve(res.text()));
+  }).should.be.eventually.equal(
+    '<main id="root"><div>render react</div></main>\n'
+  ));
+
+  it('# test add options', () => new Promise((resolve) => {
+    fetch('http://localhost:8000/react-render/test-option/')
+      .then(res => resolve(res.text()));
+  }).should.be.eventually.equal(
+    '<main id="root"><div>render react</div></main>test option\n'
+  ));
 });

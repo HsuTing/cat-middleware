@@ -6,13 +6,11 @@
     "babel": "rm -rf ./lib && babel src --out-dir lib",
     "babel:watch": "rm -rf ./lib && babel -w src --out-dir lib",
     "prepublish": "yarn babel",
-    "watch": "concurrently -c green \"yarn lint:watch\" \"yarn babel:watch\"",
-    "start": "nodemon ./lib/test/server.js",
-    "test-server": "yarn babel && node ./lib/test/server.js"
+    "watch": "concurrently -c green \"yarn lint:watch\" \"yarn babel:watch\""
   },
   "main": "./lib/index.js",
   "name": "cat-middleware",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "koa middleware",
   "author": {
     "name": "hsuting",

@@ -16,6 +16,12 @@ router.get('/react-render/', reactRender(
   <TestRenderReact />
 ));
 
+router.get('/react-render/test-option/', reactRender(
+  <TestRenderReact />, {
+    test_option: 'test option'
+  }
+));
+
 app.use(router.middleware());
 
 app.listen(8000);
