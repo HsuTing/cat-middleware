@@ -19,7 +19,6 @@ Render `html` with `react` and `nunjucks`. If you need to use `radium`. You will
 
 ```js
 import reactRender from 'cat-middleware/lib/koa-react-render';
-import Index from 'components/Index';
 
 const render = reactRender();
 ...
@@ -27,6 +26,25 @@ app.use(render(
   <div>render react</div>
 ));
 ...
+```
+
+#### koa-i18n
+Read json file and use it as string.
+
+###### Arguments
+- `options(default: {})`
+  - `root(default: './i18n')`: This is the folder of the files.
+  - `i18n(default: 'en-us')`: This is the default language for this middleware.
+
+- Example
+
+```js
+import i18n from 'cat-middleware/lib/koa-i18n';
+
+...
+app.use(i18n());
+...
+// Then you can use `i18n` in your `ctx`.
 ```
 
 #### koa-bot-fb
