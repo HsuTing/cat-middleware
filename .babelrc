@@ -6,6 +6,7 @@
   ],
   "plugins": [
     "transform-object-assign",
+    "transform-decorators-legacy",
     ["module-resolver", {
       "root": ["./src"],
       "alias": {

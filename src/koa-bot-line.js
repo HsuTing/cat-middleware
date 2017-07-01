@@ -7,12 +7,14 @@ import check from 'cat-utils/lib/check';
 
 check.env('BOT_LINE_AUTHORIZATION');
 
-export const receivedMessage = callback => ctx => {
+export const receivedMessage = callback => (ctx, next) => {
   const {request, response} = ctx;
   const data = request.body;
 
   data.events.forEach(callback);
   response.status = 200;
+
+  return next();
 };
 
 export const callSendAPI = (messageData, callback) => {

@@ -10,7 +10,7 @@ check.env([
   'BOT_FB_PAGE_ACCESS_TOKEN'
 ]);
 
-export const verifyToken = ctx => {
+export const verifyToken = (ctx, next) => {
   const {request, response} = ctx;
 
   if(request.query['hub.mode'] === 'subscribe' &&
@@ -23,9 +23,11 @@ export const verifyToken = ctx => {
     console.error('Failed validation. Make sure the validation tokens match.');
     response.status = 403;
   }
+
+  return next();
 };
 
-export const receivedMessage = (callback, unknown_event_callback) => ctx => {
+export const receivedMessage = (callback, unknown_event_callback) => (ctx, next) => {
   const {request, response} = ctx;
   const data = request.body;
 
@@ -43,6 +45,8 @@ export const receivedMessage = (callback, unknown_event_callback) => ctx => {
 
     response.status = 200;
   }
+
+  return next();
 };
 
 export const callSendAPI = (messageData, callback) => {

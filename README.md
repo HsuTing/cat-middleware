@@ -2,74 +2,57 @@
 Middleware of koa server.
 
 ## Middleware
-- koa-react
-  - Need to install `nunjucks`, `react`, `react-dom` and `cat-components`.
-  - Render `html` with `react` and `nunjucks`.
-  - Example:
+#### koa-react-render
+Render `html` with `react` and `nunjucks`. If you need to use `radium`. You will get `radiumConfig` as `props` to your `component`.
 
-  ```javascript
-  import react from 'cat-middleware/lib/koa-react';
-  import Index from 'components/Index';
+- Install: `nunjucks`, `react` and `react-dom`.
 
-  ...
-  app.use(react({
-    component: Index,
-    js: 'index',
-    ENV: true // use to minify html
-  }));
-  ...
-  ```
+###### Arguments
+- `component`: This component is used to render to the template.
+- `options(default: {})`
+  - `root(default: './views')`: This is the folder of the templates which is for `nunjucks`.
+  - `renderKey(default: 'content')`: This is the variable in template which will be replace with `component`.
+  - `template(default: 'template.html'`): This is the template of the html.
+  - You can add other variables for your template.
 
-- koa-relay
-  - Need to install `nunjucks`, `react`, `react-dom`, `isomorphic-relay` and `cat-components`.
-  - Render `html` with `react`, `relay` and `nunjucks`.
-  - Example:
+- Example:
 
-  ```javascript
-  import Relay from 'react-relay';
-  import relay from 'cat-middleware/lib/koa-relay';
-  import index from 'containers/index';
+```js
+import reactRender from 'cat-middleware/lib/koa-react-render';
+import Index from 'components/Index';
 
-  const graphqlLink = 'http://localhost:8000/graphql';
+const render = reactRender();
+...
+app.use(render(
+  <div>render react</div>
+));
+...
+```
 
-  ...
-  app.use(relay({
-    rootContainerProps: index({input: 'index'}),
-    networkLayer: new Relay.DefaultNetworkLayer(graphqlLink),
-    js: 'index',
-    ENV: true // use to minify html
-  }));
-  ...
-  ```
+#### koa-bot-fb
+- Install: `request`.
+- Example:
 
-- koa-relay-router
-  - Need to install `nunjucks`, `react`, `react-dom`, `isomorphic-relay` and `cat-components`.
-  - Use like `koa-relay`, but need to give `container` and `containerQuery` instead of `rootContainerProps`.
+```js
+...
+import * as FBBot from 'cat-middleware/lib/koa-bot-fb';
+...
+router.get('/webhook', body(), FBBot.verifyToken);
+router.post('/webhook', body(), FBBot.receivedMessage(FBReceivedMessage));
+...
+```
 
-- koa-bot-fb
-  - Need to install `request`.
-  - Example:
+#### koa-bot-line
+- Install: `request`.
+- Example:
 
-  ```javascript
-  ...
-  import * as FBBot from 'cat-middleware/lib/koa-bot-fb';
-  ...
-  router.get('/webhook', body(), FBBot.verifyToken);
-  router.post('/webhook', body(), FBBot.receivedMessage(FBReceivedMessage));
-  ...
-  ```
-
-- koa-bot-line
-  - Need to install `request`.
-  - Example:
-
-  ```javascript
-  ...
-  import * as LineBot from 'cat-middleware/lib/koa-bot-line';
-  ...
-  router.post('/line', body(), LineBot.receivedMessage(LineReceivedMessage));
-  ...
-  ```
+```js
+...
+import * as LineBot from 'cat-middleware/lib/koa-bot-line';
+...
+router.post('/line', body(), LineBot.receivedMessage(LineReceivedMessage));
+...
+```
 
 - See more information in [code](./src).
 

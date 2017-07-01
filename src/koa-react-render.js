@@ -3,24 +3,26 @@
 import path from 'path';
 import process from 'process';
 import nunjucks from 'nunjucks';
+import React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
-import renderRadium from 'cat-components/lib/bin/render-radium';
 
 const root = process.cwd();
 
-export default (Component, options) => { // eslint-disable-line react/display-name
+export default (component, options = {}) => (ctx, next) => { // eslint-disable-line react/display-name
   nunjucks.configure(path.resolve(root, options.root || './views'));
 
-  options.content = renderToStaticMarkup(
-    renderRadium(Component, {
+  options[(options.renderKey || 'content')] = renderToStaticMarkup(
+    React.cloneElement(component, {
       radiumConfig: {
-        userAgent: options.ctx.request.headers['user-agent']
+        userAgent: ctx.request.headers['user-agent']
       }
     })
   );
 
-  options.ctx.body = nunjucks.render(
+  ctx.body = nunjucks.render(
     options.template || 'template.html',
     options
   );
+
+  return next();
 };
