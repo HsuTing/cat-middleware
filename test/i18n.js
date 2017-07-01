@@ -5,18 +5,18 @@ const fetch = require('node-fetch');
 
 require('./../lib/test/server');
 
-describe('koa-react-render', () => {
-  it('# test react', () => new Promise((resolve) => {
-    fetch('http://localhost:8000/react-render/')
+describe('koa-i18n', () => {
+  it('# test normal', () => new Promise((resolve) => {
+    fetch('http://localhost:8000/i18n/')
       .then(res => resolve(res.text()));
   }).should.be.eventually.equal(
-    '<main id="root"><div>render react</div></main>\n'
+    '{"hello":"hello world"}'
   ));
 
   it('# test add options', () => new Promise((resolve) => {
-    fetch('http://localhost:8000/react-render/test-options/')
+    fetch('http://localhost:8000/i18n/test-options')
       .then(res => resolve(res.text()));
   }).should.be.eventually.equal(
-    '<main id="root"><div>render react</div></main>test option\n'
+    '{"hello":"hello world"}'
   ));
 });

@@ -54,9 +54,10 @@
     "istanbul": "^0.4.5",
     "koa": "^2.3.0",
     "koa-better-router": "^2.1.1",
+    "koa-convert": "^1.2.0",
+    "koa-generic-session": "^1.11.6",
     "mocha": "^3.4.2",
     "node-fetch": "^1.7.1",
-    "nodemon": "^1.11.0",
     "pre-commit": "^1.2.2",
     "should": "^11.2.1"
   },

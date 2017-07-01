@@ -6,3 +6,4 @@ yarn.lock
 .yo-rc.json
 test
 views
+i18n
