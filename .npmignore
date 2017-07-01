@@ -4,6 +4,8 @@ yarn.lock
 .editorconfig
 .eslint*
 .yo-rc.json
+.travis.yml
+coverage
 test
 views
 i18n
