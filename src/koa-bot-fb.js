@@ -10,6 +10,7 @@ check.env([
   'BOT_FB_PAGE_ACCESS_TOKEN'
 ]);
 
+// TODO add test
 export const verifyToken = (ctx, next) => {
   const {request, response} = ctx;
 

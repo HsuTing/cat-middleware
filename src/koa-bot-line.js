@@ -7,6 +7,7 @@ import check from 'cat-utils/lib/check';
 
 check.env('BOT_LINE_AUTHORIZATION');
 
+// TODO add test
 export const receivedMessage = callback => (ctx, next) => {
   const {request, response} = ctx;
   const data = request.body;
