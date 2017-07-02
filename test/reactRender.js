@@ -1,22 +1,46 @@
 'use strict';
 
 const should = require('should');
-const fetch = require('node-fetch');
+const React = require('react');
 
-require('./../lib/test/server');
+const fetch = require('./fetch');
+const reactRender = require('./../lib/koa-react-render').default;
+const TestRenderReact = require('./../lib/test/TestRenderReact').default;
 
 describe('koa-react-render', () => {
-  it('# test react', () => new Promise((resolve) => {
-    fetch('http://localhost:8000/react-render/')
-      .then(res => resolve(res.text()));
-  }).should.be.eventually.equal(
-    '<main id="root"><div>render react</div></main>\n'
-  ));
+  let server = null;
+  before(() => {
+    server = require('./server')(router => {
+      router.get('/react-render/', reactRender(
+        React.createElement(TestRenderReact)
+      ));
 
-  it('# test add options', () => new Promise((resolve) => {
-    fetch('http://localhost:8000/react-render/test-options/')
-      .then(res => resolve(res.text()));
-  }).should.be.eventually.equal(
-    '<main id="root"><div>render react</div></main>test option\n'
-  ));
+      router.get('/react-render/test-options/', reactRender(
+        React.createElement(TestRenderReact), {
+          root: './views',
+          renderKey: 'content',
+          template: 'template.html',
+          test_option: 'test option'
+        }
+      ));
+    });
+  });
+
+  it('# test react', () => {
+    return fetch('/react-render/')
+      .should.be.eventually.equal(
+        '<main id="root"><div>render react</div></main>\n'
+      );
+  });
+
+  it('# test add options', () => {
+    return fetch('/react-render/test-options/')
+      .should.be.eventually.equal(
+        '<main id="root"><div>render react</div></main>test option\n'
+      );
+  });
+
+  after(() => {
+    server.close();
+  });
 });
