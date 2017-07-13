@@ -81,33 +81,6 @@ router.get(
 ...
 ```
 
-#### koa-bot-fb
-###### Install
-- `request`
-
-###### Example
-```js
-...
-import * as FBBot from 'cat-middleware/lib/koa-bot-fb';
-...
-router.get('/webhook', body(), FBBot.verifyToken);
-router.post('/webhook', body(), FBBot.receivedMessage(FBReceivedMessage));
-...
-```
-
-#### koa-bot-line
-###### Install
-- `request`
-
-###### Example:
-```js
-...
-import * as LineBot from 'cat-middleware/lib/koa-bot-line';
-...
-router.post('/line', body(), LineBot.receivedMessage(LineReceivedMessage));
-...
-```
-
 ## License
 MIT © [hsuting](http://hsuting.com)
 
