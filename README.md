@@ -85,6 +85,6 @@ router.get(
 MIT © [hsuting](http://hsuting.com)
 
 [npm-image]: https://badge.fury.io/js/cat-middleware.svg
-[npm-url]: https://npmjs.org/package/cat-middleware
+[npm-url]: https://www.npmjs.com/package/cat-middleware
 [travis-image]: https://travis-ci.org/HsuTing/cat-middleware.svg?branch=master
 [travis-url]: https://travis-ci.org/HsuTing/cat-middleware
