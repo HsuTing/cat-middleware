@@ -1,14 +1,16 @@
 'use strict';
 
-const should = require('should');
+import should from 'should'; // eslint-disable-line no-unused-vars
 
-const fetch = require('./fetch');
-const i18n = require('./../lib/koa-i18n').default;
+import i18n from './../koa-i18n';
+import fetch from './fetch';
+import server from './server';
+
+let app = null;
 
 describe('koa-i18n', () => {
-  let server = null;
   before(() => {
-    server = require('./server')(router => {
+    app = server(router => {
       router.get('/i18n/', i18n(), ctx => {
         ctx.body = JSON.stringify(ctx.i18n);
       });
@@ -34,6 +36,6 @@ describe('koa-i18n', () => {
   });
 
   after(() => {
-    server.close();
+    app.close();
   });
 });

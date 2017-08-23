@@ -1,17 +1,17 @@
 'use strict';
 
-const process =  require('process');
-const should = require('should');
+import should from 'should'; // eslint-disable-line no-unused-vars
 
-//require('./../lib/test/server');
-const fetch = require('./fetch');
-const authentication = require('./../lib/koa-authentication').default;
+import authentication from './../koa-authentication';
+import fetch from './fetch';
+import server from './server';
+
+let app = null;
 
 describe('koa-authentication', () => {
   describe('env: true', () => {
-    let server = null;
     before(() => {
-      server = require('./server')(router => {
+      app = server(router => {
         router.get('/authentication/fail/', ctx => {
           ctx.body = 'authentication failed for user';
         });
@@ -31,9 +31,7 @@ describe('koa-authentication', () => {
         );
 
         router.get('/authentication/test-user/fail/',
-          authentication.set('user', '/authentication/fail/'), ctx => {
-            ctx.body = 'test user';
-          }
+          authentication.set('user', '/authentication/fail/')
         );
       }, app => {
         app.use(authentication.configure({
@@ -59,41 +57,26 @@ describe('koa-authentication', () => {
       });
     });
 
-    it('# test "none"', () => {
-      return fetch('/authentication/')
-        .should.be.eventually.equal(
-          'test none'
-        );
-    });
+    it('# test "none"', () => fetch('/authentication/')
+      .should.be.eventually.equal('test none'));
 
     describe('# test "user"', () => {
-      it('## authentication', () => {
-        return fetch('/authentication/test-user/')
-          .should.be.eventually.equal(
-            'test user'
-          );
-      });
+      it('## authentication', () => fetch('/authentication/test-user/')
+        .should.be.eventually.equal('test user'));
 
-      it('## authentication fail', () => {
-        return fetch('/authentication/test-user/fail/')
-          .should.be.eventually.equal(
-            'authentication failed for user'
-          );
-      });
+      it('## authentication fail', () => fetch('/authentication/test-user/fail/')
+        .should.be.eventually.equal('authentication failed for user'));
     });
 
     after(() => {
-      server.close();
+      app.close();
     });
   });
 
   describe('env: false', () => {
-    let server = null;
     before(() => {
-      server = require('./server')(router => {
-        router.get('/authentication/fail/', ctx => {
-          ctx.body = 'authentication failed for user';
-        });
+      app = server(router => {
+        router.get('/authentication/fail/');
 
         router.get('/authentication/test-user/fail/',
           authentication.set('user', '/authentication/fail/'),
@@ -109,15 +92,11 @@ describe('koa-authentication', () => {
       });
     });
 
-    it('# "none" authentication can pass "user" authentication', () => {
-      return fetch('/authentication/test-user/fail/')
-        .should.be.eventually.equal(
-          'test user'
-        );
-    });
+    it('# "none" authentication can pass "user" authentication', () => fetch('/authentication/test-user/fail/')
+      .should.be.eventually.equal('test user'));
 
     after(() => {
-      server.close();
+      app.close();
     });
   });
 });

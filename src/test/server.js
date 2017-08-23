@@ -1,9 +1,12 @@
 'use strict';
 
-const Koa = require('koa');
-const Router = require('koa-better-router');
+import Koa from 'koa';
+import Router from 'koa-better-router';
 
-module.exports = (routerFunc = () => {}, appFunc = () => {}) => {
+export default (
+  routerFunc,
+  appFunc = () => {}
+) => {
   const app = new Koa();
   const router = Router().loadMethods();
 

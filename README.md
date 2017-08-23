@@ -1,5 +1,5 @@
 # Cat-middleware [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
-Middleware of koa server. See more information in [code](./src) and [test](./test).
+Middleware of koa server. See more information in [code](./src) and [here](./src/test).
 
 ## Middleware
 #### koa-react-render

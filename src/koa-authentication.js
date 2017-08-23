@@ -7,8 +7,7 @@ const checkAuthority = (user = {}, require_authentication, authentication_levels
   if(require_authentication === 'none' || user_authentication_level >= require_authentication_level)
     return true;
 
-  if(user_authentication_level < require_authentication_level)
-    return false;
+  return false;
 };
 
 export default {

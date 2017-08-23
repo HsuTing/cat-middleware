@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "test": "yarn babel && istanbul cover _mocha -- -R spec test/**",
+    "test": "nyc mocha ./src/test/*.js --recursive --reporter spec",
     "lint": "eslint --cache ./src ./bin --ext .js",
     "lint:watch": "esw --cache ./src ./bin --ext .js -w --color",
     "babel": "rm -rf ./lib && babel src --out-dir lib",
@@ -51,12 +51,12 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-react": "^6.9.0",
     "eslint-watch": "^2.1.14",
-    "istanbul": "^0.4.5",
     "koa": "^2.3.0",
     "koa-better-router": "^2.1.1",
     "mocha": "^3.4.2",
     "node-fetch": "^1.7.1",
     "nodemon": "^1.11.0",
+    "nyc": "^11.1.0",
     "pre-commit": "^1.2.2",
     "should": "^11.2.1"
   },
