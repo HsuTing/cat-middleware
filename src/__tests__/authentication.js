@@ -1,16 +1,14 @@
 'use strict';
 
-import should from 'should'; // eslint-disable-line no-unused-vars
-
 import authentication from './../koa-authentication';
-import fetch from './fetch';
-import server from './server';
+import fetch from './utils/fetch';
+import server from './utils/server';
 
 let app = null;
 
 describe('koa-authentication', () => {
   describe('env: true', () => {
-    before(() => {
+    beforeAll(() => {
       app = server(router => {
         router.get('/authentication/fail/', ctx => {
           ctx.body = 'authentication failed for user';
@@ -43,38 +41,38 @@ describe('koa-authentication', () => {
 
     describe('# test configure', () => {
       it('## without setting', () => {
-        (() => {
+        expect(() => {
           authentication.configure();
-        }).should.be.throw('You must set "none" in "koa-authentication.configure".');
+        }).toThrowError('You must set "none" in "koa-authentication.configure".');
       });
 
       it('## just set "none"', () => {
-        (() => {
+        expect(() => {
           authentication.configure({
             none: 0
           });
-        }).should.be.throw('You must set other authentication levels in "koa-authentication.configure", not just "none".');
+        }).toThrowError('You must set other authentication levels in "koa-authentication.configure", not just "none".');
       });
     });
 
-    it('# test "none"', () => fetch('/authentication/')
-      .should.be.eventually.equal('test none'));
+    it('# test "none"', () => expect(fetch('/authentication/'))
+      .resolves.toBe('test none'));
 
     describe('# test "user"', () => {
-      it('## authentication', () => fetch('/authentication/test-user/')
-        .should.be.eventually.equal('test user'));
+      it('## authentication', () => expect(fetch('/authentication/test-user/'))
+        .resolves.toBe('test user'));
 
-      it('## authentication fail', () => fetch('/authentication/test-user/fail/')
-        .should.be.eventually.equal('authentication failed for user'));
+      it('## authentication fail', () => expect(fetch('/authentication/test-user/fail/'))
+        .resolves.toBe('authentication failed for user'));
     });
 
-    after(() => {
+    afterAll(() => {
       app.close();
     });
   });
 
   describe('env: false', () => {
-    before(() => {
+    beforeAll(() => {
       app = server(router => {
         router.get('/authentication/fail/');
 
@@ -92,10 +90,11 @@ describe('koa-authentication', () => {
       });
     });
 
-    it('# "none" authentication can pass "user" authentication', () => fetch('/authentication/test-user/fail/')
-      .should.be.eventually.equal('test user'));
+    it('# "none" authentication can pass "user" authentication', () =>
+      expect(fetch('/authentication/test-user/fail/')).resolves.toBe('test user')
+    );
 
-    after(() => {
+    afterAll(() => {
       app.close();
     });
   });

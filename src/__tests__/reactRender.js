@@ -1,17 +1,16 @@
 'use strict';
 
-import should from 'should'; // eslint-disable-line no-unused-vars
 import React from 'react';
 
 import reactRender from './../koa-react-render';
-import fetch from './fetch';
-import server from './server';
-import TestRenderReact from './TestRenderReact';
+import fetch from './utils/fetch';
+import server from './utils/server';
+import TestRenderReact from './utils/TestRenderReact';
 
 let app = null;
 
 describe('koa-react-render', () => {
-  before(() => {
+  beforeAll(() => {
     app = server(router => {
       router.get('/react-render/', reactRender(
         React.createElement(TestRenderReact)
@@ -28,17 +27,13 @@ describe('koa-react-render', () => {
     });
   });
 
-  it('# test react', () => fetch('/react-render/')
-    .should.be.eventually.equal(
-      '<main id="root"><div>render react</div></main>\n'
-    ));
+  it('# test react', () => expect(fetch('/react-render/'))
+    .resolves.toBe('<main id="root"><div>render react</div></main>\n'));
 
-  it('# test add options', () => fetch('/react-render/test-options/')
-    .should.be.eventually.equal(
-      '<main id="root"><div>render react</div></main>test option\n'
-    ));
+  it('# test add options', () => expect(fetch('/react-render/test-options/'))
+    .resolves.toBe('<main id="root"><div>render react</div></main>test option\n'));
 
-  after(() => {
+  afterAll(() => {
     app.close();
   });
 });

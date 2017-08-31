@@ -5,9 +5,8 @@ yarn.lock
 .eslint*
 .yo-rc.json
 .travis.yml
-.nycrc
+jest.config.js
 coverage
-.nyc_output
-test
+lib/__tests__
 views
 i18n
