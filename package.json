@@ -2,10 +2,10 @@
   "scripts": {
     "test": "jest --silent",
     "test:watch": "yarn test -- --watch",
-    "lint": "eslint --cache ./src --ext .js --ignore __tests__",
-    "lint:watch": "esw --cache ./src --ext .js -w --color --ignore __tests__",
-    "babel": "rm -rf ./lib && babel src --out-dir lib",
-    "babel:watch": "rm -rf ./lib && babel -w src --out-dir lib",
+    "lint": "eslint --cache ./src --ext .js",
+    "lint:watch": "esw --cache ./src --ext .js -w --color",
+    "babel": "rm -rf ./lib && babel src --out-dir lib --ignore __tests__",
+    "babel:watch": "rm -rf ./lib && babel -w src --out-dir lib --ignore __tests__",
     "prepublish": "yarn babel",
     "watch": "concurrently -c green \"yarn lint:watch\" \"yarn babel:watch\""
   },
