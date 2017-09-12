@@ -11,5 +11,5 @@ export default (options = {}) => {
     ctx.i18n = require(path.resolve(rootPath, `${ctx.cookies.i18n || i18n}.json`));
 
     return next();
-  }
+  };
 };
