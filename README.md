@@ -89,6 +89,10 @@ router.get(
 #### koa-relay-query-lookup-render
 Use to get the data from `environment.sendQuery` for `relay-query-lookup-renderer`.
 
+###### Install
+- `babel-polyfill`
+- `react-relay`
+
 ###### Arguments
 You can know those arguments from [relay-query-lookup-renderer](https://github.com/robrichard/relay-query-lookup-renderer).
 - `environment`
