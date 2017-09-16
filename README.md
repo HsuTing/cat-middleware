@@ -22,13 +22,14 @@ Render `html` with `react` and `nunjucks`. If you need to use `radium`. You will
 ```js
 import reactRender from 'cat-middleware/lib/koa-react-render';
 
-const render = reactRender();
 ...
-app.use(render(
+app.use(reactRender(
   <div>render react</div>
 ));
 ...
 ```
+
+
 
 #### koa-i18n
 Read json file and use it as string. It will read the cookies from `client`. You can set `i18n` in cookies to change the language.
@@ -47,6 +48,8 @@ app.use(i18n());
 ...
 // Then you can use `i18n` in your `ctx`.
 ```
+
+
 
 #### koa-authentication
 Use to check the authentication. You must have `user` in `ctx.state` and `authentication` in `user`. You can use `koa-passport` to do this.
@@ -80,6 +83,37 @@ router.get(
 );
 ...
 ```
+
+
+
+#### koa-relay-query-lookup-render
+Use to get the data from `environment.sendQuery` for `relay-query-lookup-renderer`.
+
+###### Arguments
+You can know those arguments from [relay-query-lookup-renderer](https://github.com/robrichard/relay-query-lookup-renderer).
+- `environment`
+- `query`
+- `variables`
+
+###### Example
+```js
+import relayQueryLookupRender from 'cat-middleware/lib/koa-relay-query-lookup-render';
+
+...
+app.use(relayQueryLookupRender(
+  environment, graphql`
+    query relayQueryLookupRenderQuery {
+      data {
+        key
+      }
+    }
+  `
+));
+...
+// Then you can use `records` in your `ctx`, and use this to `RecordSource` in client side.
+```
+
+
 
 ## License
 MIT © [hsuting](http://hsuting.com)

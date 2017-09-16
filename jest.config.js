@@ -2,7 +2,8 @@ module.exports = {
   testPathIgnorePatterns: [
     '/node_modules/',
     '/lib/',
-    '/utils/'
+    '/utils/',
+    '/__generated__/'
   ],
   collectCoverage: true,
   collectCoverageFrom: [

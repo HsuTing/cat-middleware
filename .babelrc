@@ -5,6 +5,7 @@
     "stage-0"
   ],
   "plugins": [
+    "relay",
     "transform-object-assign",
     "transform-decorators-legacy",
     ["module-resolver", {

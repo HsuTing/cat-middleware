@@ -1,0 +1,9 @@
+type Data {
+  key: String
+}
+
+type Query {
+  data(
+    input: String
+  ): Data
+}
