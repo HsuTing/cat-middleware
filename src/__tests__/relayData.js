@@ -9,23 +9,28 @@ import {
   Store
 } from 'relay-runtime';
 
-import relayQueryLookupRender from './../koa-relay-query-lookup-render';
+import relayData from './../koa-relay-data';
 import fetch from './utils/fetch';
 import server from './utils/server';
 
 let app = null;
 
+const data = {
+  data: {
+    key: 'value'
+  }
+};
 const source = new RecordSource();
 const store = new Store(source);
 const network = Network.create((
   operation,
   variables
-) => ({
-  data: {
-    data: {
-      key: 'value'
-    }
-  }
+) => new Promise(resolve => {
+  setTimeout(() => {
+    resolve({
+      data: data
+    });
+  }, 100);
 }));
 
 const environment = new Environment({
@@ -33,28 +38,30 @@ const environment = new Environment({
   store
 });
 
-describe('koa-relay-query-lookup-render', () => {
+describe('koa-relay-data', () => {
   beforeAll(() => {
     app = server(router => {
       router.get(
-        '/relay-query-lookup-render/',
-        relayQueryLookupRender(environment, graphql`
-          query relayQueryLookupRenderQuery {
+        '/relay-data/',
+        relayData(environment, graphql`
+          query relayDataQuery {
             data {
               key
             }
           }
         `),
         (ctx, next) => {
-          ctx.body = ctx.records;
+          ctx.body = ctx.graphql_data;
           return next();
         }
       );
     });
   });
 
-  it('# normal query', () => expect(fetch('/relay-query-lookup-render/'))
-    .resolves.toBeTruthy());
+  it('# normal query', () => expect(
+    fetch('/relay-data/')
+      .then(data => JSON.parse(data))
+  ).resolves.toMatchObject(data));
 
   afterAll(() => {
     app.close();

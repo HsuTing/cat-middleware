@@ -87,24 +87,23 @@ router.get(
 
 
 #### koa-relay-query-lookup-render
-Use to get the data from `environment.sendQuery` for `relay-query-lookup-renderer`.
+Use to get the data from `environment.execute`.
 
 ###### Install
 - `babel-polyfill`
 - `react-relay`
 
 ###### Arguments
-You can know those arguments from [relay-query-lookup-renderer](https://github.com/robrichard/relay-query-lookup-renderer).
 - `environment`
 - `query`
 - `variables`
 
 ###### Example
 ```js
-import relayQueryLookupRender from 'cat-middleware/lib/koa-relay-query-lookup-render';
+import relayData from 'cat-middleware/lib/koa-relay-data';
 
 ...
-app.use(relayQueryLookupRender(
+app.use(relayData(
   environment, graphql`
     query relayQueryLookupRenderQuery {
       data {
@@ -114,7 +113,7 @@ app.use(relayQueryLookupRender(
   `
 ));
 ...
-// Then you can use `records` in your `ctx`, and use this to `RecordSource` in client side.
+// Then you can get the data `graphql_data` in your `ctx`.
 ```
 
 
