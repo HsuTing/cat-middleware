@@ -3,15 +3,19 @@
 import 'babel-polyfill';
 import 'fetch-everywhere';
 import {
+  RecordSource,
+  Store,
+  Network,
+  Environment,
   createOperationSelector,
   getOperation
 } from 'relay-runtime';
 
 export default (link, query, variables = {}) => async (ctx, next) => {
-  const operation = createOperationSelector(getOperation(query), variables);
-
   return await new Promise(resolve => {
-    fetch(link, {
+    const source = new RecordSource();
+    const store = new Store(source);
+    const network = Network.create((operation, variables) => fetch(link, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -24,6 +28,23 @@ export default (link, query, variables = {}) => async (ctx, next) => {
       .then(data => {
         ctx.graphql_data = data;
         resolve(next());
+        return data;
+      }));
+    const environment = new Environment({network, store});
+    const operation = createOperationSelector(getOperation(query), variables);
+    let snapshot;
+
+    environment
+      .execute({operation})
+      .finally(() => {})
+      .subscribe({
+        next: () => {
+          /* istanbul ignore if */
+          if(snapshot)
+            return;
+
+          snapshot = environment.lookup(operation.fragment);
+        }
       });
   });
 };

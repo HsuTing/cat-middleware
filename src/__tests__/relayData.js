@@ -10,7 +10,9 @@ let app = null;
 
 const data = {
   data: {
-    key: 'value'
+    relayData: {
+      key: 'value'
+    }
   }
 };
 
@@ -26,7 +28,7 @@ describe('koa-relay-data', () => {
         '/relay-data/',
         relayData('http://localhost:8000/get-data/', graphql`
           query relayDataQuery {
-            data {
+            relayData {
               key
             }
           }

@@ -3,7 +3,5 @@ type Data {
 }
 
 type Query {
-  data(
-    input: String
-  ): Data
+  relayData: Data
 }
