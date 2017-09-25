@@ -1,6 +1,6 @@
 'use strict';
 
-import fetch from 'node-fetch';
+import 'fetch-everywhere';
 
 export default url => new Promise(resolve => {
   fetch(`http://localhost:8000${url}`)

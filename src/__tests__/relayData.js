@@ -1,13 +1,6 @@
 'use strict';
 
-import 'node-fetch';
 import {graphql} from 'react-relay';
-import {
-  Environment,
-  Network,
-  RecordSource,
-  Store
-} from 'relay-runtime';
 
 import relayData from './../koa-relay-data';
 import fetch from './utils/fetch';
@@ -20,30 +13,18 @@ const data = {
     key: 'value'
   }
 };
-const source = new RecordSource();
-const store = new Store(source);
-const network = Network.create((
-  operation,
-  variables
-) => new Promise(resolve => {
-  setTimeout(() => {
-    resolve({
-      data: data
-    });
-  }, 100);
-}));
-
-const environment = new Environment({
-  network,
-  store
-});
 
 describe('koa-relay-data', () => {
   beforeAll(() => {
     app = server(router => {
+      router.post('/get-data/', (ctx, next) => {
+        ctx.response.type = 'json';
+        ctx.response.body = JSON.stringify(data);
+      });
+
       router.get(
         '/relay-data/',
-        relayData(environment, graphql`
+        relayData('http://localhost:8000/get-data/', graphql`
           query relayDataQuery {
             data {
               key
@@ -52,7 +33,6 @@ describe('koa-relay-data', () => {
         `),
         (ctx, next) => {
           ctx.body = ctx.graphql_data;
-          return next();
         }
       );
     });

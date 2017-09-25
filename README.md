@@ -86,15 +86,16 @@ router.get(
 
 
 
-#### koa-relay-query-lookup-render
-Use to get the data from `environment.execute`.
+#### koa-relay-data
+Use to get the data from `fetch` with `react-relay`.
 
 ###### Install
 - `babel-polyfill`
+- `fetch-everywhere`
 - `react-relay`
 
 ###### Arguments
-- `environment`
+- `link`
 - `query`
 - `variables`
 
@@ -104,8 +105,8 @@ import relayData from 'cat-middleware/lib/koa-relay-data';
 
 ...
 app.use(relayData(
-  environment, graphql`
-    query relayQueryLookupRenderQuery {
+  link, graphql`
+    query relayData {
       data {
         key
       }

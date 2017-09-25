@@ -1,33 +1,29 @@
 'use strict';
 
 import 'babel-polyfill';
+import 'fetch-everywhere';
 import {
   createOperationSelector,
   getOperation
 } from 'relay-runtime';
 
-export default (environment, query, variables = {}) => async (ctx, next) => {
-  const operation = createOperationSelector(
-    getOperation(query),
-    variables
-  );
-  let snapshot;
+export default (link, query, variables = {}) => async (ctx, next) => {
+  const operation = createOperationSelector(getOperation(query), variables);
 
   return await new Promise(resolve => {
-    environment
-      .execute({operation, cacheConfig: {add: true}})
-      .finally(() => {
-        ctx.graphql_data = snapshot.data;
-        resolve(next());
+    fetch(link, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        query: operation.text,
+        variables
       })
-      .subscribe({
-        next: () => {
-          /* istanbul ignore if */
-          if(snapshot)
-            return;
-
-          snapshot = environment.lookup(operation.fragment);
-        }
+    }).then(response => response.json())
+      .then(data => {
+        ctx.graphql_data = data;
+        resolve(next());
       });
   });
 };
