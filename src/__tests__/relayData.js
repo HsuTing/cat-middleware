@@ -6,6 +6,7 @@ import relayData from './../koa-relay-data';
 import fetch from './utils/fetch';
 import server from './utils/server';
 
+const port = 8004;
 let app = null;
 
 const data = {
@@ -18,7 +19,7 @@ const data = {
 
 describe('koa-relay-data', () => {
   beforeAll(() => {
-    app = server(router => {
+    app = server(port, router => {
       router.post('/get-data/', (ctx, next) => {
         ctx.response.type = 'json';
         ctx.response.body = JSON.stringify(data);
@@ -26,7 +27,7 @@ describe('koa-relay-data', () => {
 
       router.get(
         '/relay-data/',
-        relayData('http://localhost:8000/get-data/', graphql`
+        relayData(`http://localhost:${port}/get-data/`, graphql`
           query relayDataQuery {
             relayData {
               key
@@ -41,7 +42,7 @@ describe('koa-relay-data', () => {
   });
 
   it('# normal query', () => expect(
-    fetch('/relay-data/')
+    fetch(port, '/relay-data/')
       .then(data => JSON.parse(data))
   ).resolves.toMatchObject(data));
 

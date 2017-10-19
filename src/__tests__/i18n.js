@@ -4,11 +4,12 @@ import i18n from './../koa-i18n';
 import fetch from './utils/fetch';
 import server from './utils/server';
 
+const port = 8002;
 let app = null;
 
 describe('koa-i18n', () => {
   beforeAll(() => {
-    app = server(router => {
+    app = server(port, router => {
       router.get('/i18n/', i18n(), ctx => {
         ctx.body = JSON.stringify(ctx.i18n);
       });
@@ -19,10 +20,10 @@ describe('koa-i18n', () => {
     });
   });
 
-  it('# test normal', () => expect(fetch('/i18n/'))
+  it('# test normal', () => expect(fetch(port, '/i18n/'))
     .resolves.toBe('{"hello":"hello world"}'));
 
-  it('# test add options', () => expect(fetch('/i18n/test-options'))
+  it('# test add options', () => expect(fetch(port, '/i18n/test-options'))
     .resolves.toBe('{"hello":"hello world"}'));
 
   afterAll(() => {

@@ -8,8 +8,10 @@ let app = null;
 
 describe('koa-authentication', () => {
   describe('env: true', () => {
+    const port = 8000;
+
     beforeAll(() => {
-      app = server(router => {
+      app = server(port, router => {
         router.get('/authentication/fail/', ctx => {
           ctx.body = 'authentication failed for user';
         });
@@ -55,14 +57,14 @@ describe('koa-authentication', () => {
       });
     });
 
-    it('# test "none"', () => expect(fetch('/authentication/'))
+    it('# test "none"', () => expect(fetch(port, '/authentication/'))
       .resolves.toBe('test none'));
 
     describe('# test "user"', () => {
-      it('## authentication', () => expect(fetch('/authentication/test-user/'))
+      it('## authentication', () => expect(fetch(port, '/authentication/test-user/'))
         .resolves.toBe('test user'));
 
-      it('## authentication fail', () => expect(fetch('/authentication/test-user/fail/'))
+      it('## authentication fail', () => expect(fetch(port, '/authentication/test-user/fail/'))
         .resolves.toBe('authentication failed for user'));
     });
 
@@ -72,8 +74,10 @@ describe('koa-authentication', () => {
   });
 
   describe('env: false', () => {
+    const port = 8001;
+
     beforeAll(() => {
-      app = server(router => {
+      app = server(port, router => {
         router.get('/authentication/fail/');
 
         router.get('/authentication/test-user/fail/',
@@ -91,7 +95,7 @@ describe('koa-authentication', () => {
     });
 
     it('# "none" authentication can pass "user" authentication', () =>
-      expect(fetch('/authentication/test-user/fail/')).resolves.toBe('test user')
+      expect(fetch(port, '/authentication/test-user/fail/')).resolves.toBe('test user')
     );
 
     afterAll(() => {

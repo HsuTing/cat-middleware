@@ -2,7 +2,7 @@
 
 import 'fetch-everywhere';
 
-export default url => new Promise(resolve => {
-  fetch(`http://localhost:8000${url}`)
+export default (port, url) => new Promise(resolve => {
+  fetch(`http://localhost:${port}${url}`)
     .then(res => resolve(res.text()));
 });

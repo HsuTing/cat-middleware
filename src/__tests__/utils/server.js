@@ -4,6 +4,7 @@ import Koa from 'koa';
 import koaRouter from 'koa-better-router';
 
 export default (
+  port,
   routerFunc,
   appFunc = () => {}
 ) => {
@@ -15,5 +16,5 @@ export default (
 
   app.use(router.middleware());
 
-  return app.listen(8000);
+  return app.listen(port);
 };
