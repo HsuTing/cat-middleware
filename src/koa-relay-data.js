@@ -11,7 +11,7 @@ import {
   getOperation
 } from 'relay-runtime';
 
-export default (link, query, variables = {}) => async (ctx, next) => {
+export default (link, query, variables = {}, body) => async (ctx, next) => {
   return await new Promise(resolve => {
     const source = new RecordSource();
     const store = new Store(source);
@@ -22,7 +22,8 @@ export default (link, query, variables = {}) => async (ctx, next) => {
       },
       body: JSON.stringify({
         query: operation.text,
-        variables
+        variables,
+        body
       })
     }).then(response => response.json())
       .then(data => {
