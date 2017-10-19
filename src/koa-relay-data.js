@@ -21,9 +21,9 @@ export default (link, query, variables = {}, body) => async (ctx, next) => {
         'content-type': 'application/json'
       },
       body: JSON.stringify({
+        ...body,
         query: operation.text,
-        variables,
-        body
+        variables
       })
     }).then(response => response.json())
       .then(data => {
