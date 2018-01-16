@@ -9,4 +9,3 @@ jest.config.js
 coverage
 lib/__tests__
 views
-i18n

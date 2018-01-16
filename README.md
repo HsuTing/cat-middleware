@@ -1,5 +1,5 @@
 # Cat-middleware [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
-Middleware of koa server. See more information in [code](./src) and [here](./src/test).
+Middleware of koa server. See more information in [code](./src) and [here](./src/__tests__).
 
 ## Middleware
 #### koa-react-render
@@ -27,26 +27,6 @@ app.use(reactRender(
   <div>render react</div>
 ));
 ...
-```
-
-
-
-#### koa-i18n
-Read json file and use it as string. It will read the cookies from `client`. You can set `i18n` in cookies to change the language.
-
-###### Arguments
-- `options(default: {})`
-  - `root(default: './i18n')`: This is the folder of the files.
-  - `i18n(default: 'en-us')`: This is the default language for this middleware.
-
-###### Example
-```js
-import i18n from 'cat-middleware/lib/koa-i18n';
-
-...
-app.use(i18n());
-...
-// Then you can use `i18n` in your `ctx`.
 ```
 
 
