@@ -2,17 +2,16 @@
   "presets": [
     "react",
     "env",
-    "stage-0"
+    "stage-0",
+    "flow"
   ],
   "plugins": [
-    "relay",
-    "transform-object-assign",
-    "transform-decorators-legacy",
     ["module-resolver", {
-      "root": ["./src"],
-      "alias": {
-        "share": "share"
-      }
-    }]
+      "root": ["./src"]
+    }],
+    "relay",
+    "transform-decorators-legacy",
+    "transform-object-assign",
+    "transform-class-properties"
   ]
 }

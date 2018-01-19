@@ -1,3 +1,4 @@
+// @flow
 'use strict';
 
 import 'babel-polyfill';
@@ -11,7 +12,14 @@ import {
   getOperation
 } from 'relay-runtime';
 
-export default (link, query, variables = {}, body) => async (ctx, next) => {
+import type {middlewareType} from 'types/middleware';
+
+export default (
+  link: string,
+  query: string,
+  variables: {} = {},
+  body: {}
+): middlewareType => async (ctx, next) => {
   return await new Promise(resolve => {
     const source = new RecordSource();
     const store = new Store(source);

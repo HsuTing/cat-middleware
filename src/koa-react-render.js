@@ -1,14 +1,24 @@
+// @flow
 'use strict';
 
 import path from 'path';
-import process from 'process';
 import nunjucks from 'nunjucks';
-import React from 'react';
+import * as React from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 
-const root = process.cwd();
+import type {middlewareType} from 'types/middleware';
 
-export default (component, options = {}) => (ctx, next) => { // eslint-disable-line react/display-name
+const root: string = process.cwd();
+
+export default (
+  component: React.DOM,
+  options: {
+    root?: string,
+    renderKey?: string,
+    template?: string,
+    content?: string
+  } = {}
+): middlewareType => (ctx, next) => { // eslint-disable-line react/display-name
   nunjucks.configure(path.resolve(root, options.root || './views'));
 
   options[(options.renderKey || 'content')] = renderToStaticMarkup(

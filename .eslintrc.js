@@ -4,13 +4,14 @@ const fs = require('fs');
 
 // set alias
 const {plugins} = JSON.parse(fs.readFileSync('./.babelrc'));
-const alias = plugins.slice(-1)[0][1].alias;
+const alias = plugins[0][1].alias;
 
 module.exports = {
   globals: {
     Promise: true
   },
   extends: [
+    'plugin:flowtype/recommended',
     'eslint:recommended',
     'google',
     'plugin:react/recommended',
@@ -31,7 +32,8 @@ module.exports = {
   },
   plugins: [
     'react',
-    'import'
+    'import',
+    'flowtype'
   ],
   settings: {
     react: {
@@ -40,6 +42,9 @@ module.exports = {
     },
     'import/resolver': {
       'babel-module': alias
+    },
+    'flowtype': {
+      'onlyFilesWithFlowAnnotation': true
     }
   }
 };
